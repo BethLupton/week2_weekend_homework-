@@ -16,3 +16,11 @@ class TestGuest(unittest.TestCase):
 
     def test_how_much_guest_has_in_wallet(self):
         self.assertEqual(125, self.guest1.wallet)
+
+    def test_guest_pays_fee_has_money(self):
+        paid = self.guest1.pay_fee(125)
+        self.assertEqual(True, paid)
+        
+    def test_guest_pays_fee_does_not_have_money(self):
+        paid = self.guest1.pay_fee(126)
+        self.assertEqual(False, paid)

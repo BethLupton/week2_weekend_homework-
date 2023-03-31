@@ -3,3 +3,9 @@ class Guest:
         self.name = name
         self.wallet = wallet
         self.fave_song = fave_song
+
+    def pay_fee(self, fee):
+        if self.wallet >= fee:
+            self.wallet = self.wallet - fee
+            return True
+        return False
