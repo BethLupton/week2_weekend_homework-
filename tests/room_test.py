@@ -26,22 +26,38 @@ class TestRoom(unittest.TestCase):
             ]
         }
 
-    def test_to_check_in_guest(self):
-        self.room1.check_in_guest(self.guest1)
+    def test_to_check_in_guest_has_funds(self):
+        new_guest = Guest("Megan", 20, self.song2)
+        self.room1.check_in_guest(new_guest)
         self.assertEqual(1, self.room1.guest_count())
 
+    def test_to_check_in_guest_does_not_have_funds(self):
+        new_guest = Guest("Megan", 19, self.song2)
+        self.room1.check_in_guest(new_guest)
+        self.assertEqual(0, self.room1.guest_count())
+
+    def test_check_in_beyond_capacity(self):
+        new_guests = [
+            self.guest1,
+            self.guest2,
+            self.guest3
+            ]
+        self.room1.check_in_guests(new_guests)
+        self.assertEqual(0, self.room1.guest_count())
+
+    def test_check_in_at_capacity(self):
+        new_guests = [
+            self.guest1,
+            self.guest2,
+            ]
+        self.room1.check_in_guests(new_guests)
+        self.assertEqual(2, self.room1.guest_count())
 
     def test_to_check_out_guest(self):
-        self.room1.check_out_guest(self.guest1)
-        self.assertEqual(1, self.room1.check_out_guest)
+        self.room3.check_out_guest(self.guest3)
+        self.assertEqual(0, self.room3.guest_count())
 
-    # def test_to_add_song_to_room(self):
-    #     self.room1.add_song(self.song1)
-    #     self.assertEqual(1, self.room1.song_count())
+    def test_to_add_song_to_room(self):
+        self.room1.add_song(self.song1)
+        self.assertEqual(1, self.room1.song_count())
 
-# def test_to_remove_song(self):
-
-
-# def test_to_find_guests_fave_song(self):
-# def test_room_does_have_capacity(self):
-# def test_room_does_not_have_capacity(self):
